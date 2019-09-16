@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/beevik/ntp"
 )
@@ -14,5 +13,4 @@ func main() {
 		log.Fatal("error: ", err)
 	}
 	fmt.Println(time)
-	os.Exit(0)
 }
