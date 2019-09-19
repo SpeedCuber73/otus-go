@@ -32,6 +32,7 @@ var testCases = [...]*testCase{
 	new(`qwe\4\5`, `qwe45`, nil),
 	new(`qwe\45`, `qwe44444`, nil),
 	new(`qwe\\5`, `qwe\\\\\`, nil),
+	new(`qwe\\54`, ``, ErrWrongString),
 }
 
 func TestUnpack(t *testing.T) {

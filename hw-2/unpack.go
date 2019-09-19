@@ -10,6 +10,7 @@ import (
 var (
 	ErrStartsWithDigit = errors.New("The string can't start with a digit")
 	ErrEndsWithEscape  = errors.New("The string can't end with an escape character")
+	ErrWrongString     = errors.New("The string is wrong")
 )
 
 type chunkStruct struct {
@@ -77,6 +78,9 @@ func getChunk(runes []rune) (*chunkStruct, error) {
 			runes = runes[2:]
 		case multiplier:
 			multiplier := getMultiplier(runes[0])
+			if len(chunk.prepared) == 0 {
+				return nil, ErrWrongString
+			}
 			lastSymbol := chunk.prepared[len(chunk.prepared)-1]
 			chunk.prepared = append(chunk.prepared, multiplySymbol(lastSymbol, multiplier-1)...)
 			chunk.rest = runes[1:]
