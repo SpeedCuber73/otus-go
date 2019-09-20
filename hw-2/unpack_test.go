@@ -13,26 +13,18 @@ type testCase struct {
 	err error
 }
 
-func new(src, res string, err error) *testCase {
-	return &testCase{
-		src: src,
-		res: res,
-		err: err,
-	}
-}
-
-var testCases = [...]*testCase{
-	new("4rr", "", ErrStartsWithDigit),
-	new("", "", nil),
-	new("w2q", "wwq", nil),
-	new("a4bc2d5e", "aaaabccddddde", nil),
-	new("abcd", "abcd", nil),
-	new("45", "", ErrStartsWithDigit),
-	new(`tw\`, "", ErrEndsWithEscape),
-	new(`qwe\4\5`, `qwe45`, nil),
-	new(`qwe\45`, `qwe44444`, nil),
-	new(`qwe\\5`, `qwe\\\\\`, nil),
-	new(`qwe\\54`, ``, ErrWrongString),
+var testCases = [...]testCase{
+	{"4rr", "", ErrStartsWithDigit},
+	{"", "", nil},
+	{"w2q", "wwq", nil},
+	{"a4bc2d5e", "aaaabccddddde", nil},
+	{"abcd", "abcd", nil},
+	{"45", "", ErrStartsWithDigit},
+	{`tw\`, "", ErrEndsWithEscape},
+	{`qwe\4\5`, `qwe45`, nil},
+	{`qwe\45`, `qwe44444`, nil},
+	{`qwe\\5`, `qwe\\\\\`, nil},
+	{`qwe\\54`, ``, ErrWrongString},
 }
 
 func TestUnpack(t *testing.T) {
