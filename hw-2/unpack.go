@@ -8,9 +8,9 @@ import (
 )
 
 var (
-	ErrStartsWithDigit = errors.New("The string can't start with a digit")
-	ErrEndsWithEscape  = errors.New("The string can't end with an escape character")
-	ErrWrongString     = errors.New("The string is wrong")
+	ErrStartsWithDigit = errors.New("the string can't start with a digit")
+	ErrEndsWithEscape  = errors.New("the string can't end with an escape character")
+	ErrWrongString     = errors.New("the string is wrong")
 )
 
 type chunkStruct struct {
