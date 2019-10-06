@@ -4,11 +4,11 @@ import (
 	"sync"
 )
 
-func worker(wg *sync.WaitGroup, input <-chan func() error, errCh chan<- error) {
+func worker(wg *sync.WaitGroup, output <-chan func() error, errCh chan<- error) {
 	defer wg.Done()
 	for {
 		select {
-		case task, ok := <-input:
+		case task, ok := <-output:
 			if !ok {
 				return
 			}
