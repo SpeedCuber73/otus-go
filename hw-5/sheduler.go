@@ -6,16 +6,10 @@ import (
 
 func worker(wg *sync.WaitGroup, output <-chan func() error, errCh chan<- error) {
 	defer wg.Done()
-	for {
-		select {
-		case task, ok := <-output:
-			if !ok {
-				return
-			}
-			err := task()
-			if err != nil {
-				errCh <- err
-			}
+	for task := range output {
+		err := task()
+		if err != nil {
+			errCh <- err
 		}
 	}
 }
@@ -31,6 +25,7 @@ func errorNotifier(errCh <-chan error, stopCh chan<- struct{}, maxErrors int) {
 }
 
 func producer(wg *sync.WaitGroup, tasks []func() error, input chan<- func() error, errCh <-chan error, maxErrors int) {
+	defer wg.Done()
 	defer close(input)
 
 	stopCh := make(chan struct{})
