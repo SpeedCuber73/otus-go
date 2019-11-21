@@ -108,16 +108,16 @@ func Unpack(src string) (string, error) {
 		}
 	}
 
-	finalRunes := make([]rune, 0, len(runes))
+	builder := strings.Builder{}
 
 	for 0 < len(runes) {
 		chunk, err := getChunk(runes)
 		if err != nil {
 			return "", err
 		}
-		finalRunes = append(finalRunes, chunk.prepared...)
+		builder.WriteString(string(chunk.prepared))
 		runes = chunk.rest
 	}
 
-	return string(finalRunes), nil
+	return builder.String(), nil
 }
